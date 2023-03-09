@@ -4,12 +4,3 @@ block content
   h1 Success!
   p Status: #{status}
   p Data: #{JSON.stringify(data)}
-  script(src='https://js.stripe.com/v3/')
-  script.
-    addEventListener("load", (event) => {
-      var stripe = Stripe('pk_test_51MikWFIentMRxMOaTOaruHHvKSOjEIHcpGCPPdtSFZmOub6WRjX04PANGooxoLl9BWD8FILWi9J4iN93OtvVuBEM000PYI8gQe'); // Key is publishable
-      var elements = stripe.elements({
-        clientSecret: 'pi_3MikiNB9eWliA2wW1dC9Itpm_secret_iqk9bW0Hhng37j3cB2R17FTNa', // Transient
-      });
-      var cardElement = elements.create('card');
-    });
