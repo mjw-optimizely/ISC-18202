@@ -3,4 +3,33 @@ extends layout
 block content
   h1 Success!
   p Status: #{status}
-  p Data: #{JSON.stringify(data)}
+  p#data Data: #{JSON.stringify(data)}
+  #paymentElement
+  script.
+    window.onload = async (event) => {
+      const stripe = Stripe(
+        "pk_test_51MikWFIentMRxMOaTOaruHHvKSOjEIHcpGCPPdtSFZmOub6WRjX04PANGooxoLl9BWD8FILWi9J4iN93OtvVuBEM000PYI8gQe");
+
+      var elements = stripe.elements({
+        clientSecret: "#{secret}",
+      });
+
+      var paymentElement = elements.create('payment');
+      paymentElement.mount(document.getElementById("paymentElement"));
+      
+      //- stripe.confirmPayment({
+      //-   paymentElement,
+      //-   confirmParams: {
+      //-     // Return URL where the customer should be redirected after the PaymentIntent is confirmed.
+      //-     return_url: 'https://example.com',
+      //-   },
+      //- })
+      //- .then(function(result) {
+      //-   if (result.error) {
+      //-     document.getElementById("data").innerHTML = "There was a nerror";
+      //-   }
+      //-   else {
+      //-     document.getElementById("data").innerHTML = "I guess that worked";
+      //-   }
+      //- });      
+    }

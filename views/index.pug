@@ -19,14 +19,15 @@ block content
         input#cvv(type='text' name='cvv' size='8' value='654')
         input#amount(type='text' name='amount' size='12' value='12345')
         input#radarSessionId(type='hidden' name='radarSessionId')
-    input(type='submit' value='Get some!' style='margin-top: 5px')
+    input#submit(type='submit' value='Get some!' style='margin-top: 5px' disabled='disabled')
   script.
     window.onload = async (event) => {
       const radarSession = await createRadarSession();
 
       if (radarSession) {
-        console.log(`Hey, got a radarSession! Id is ${radarSession.id}`);
+        console.log(`radarSession id: ${radarSession.id}`);
         document.getElementById("radarSessionId").value = radarSession.id;
+        document.getElementById("submit").disabled = null;
       }
       else {
         alert('No radar session; something went wrong');
