@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1 Stripe 3DS (Radar) POC
+  form(action='/authenticated' method='post')
+    #wrapper
+      #left
+        label(for='skey') Secret Key:
+        label(for='pan') Card Number:
+        label(for='expm') Exp Month (mm):
+        label(for='expy') Exp Year (yyyy):
+        label(for='cvv') CVV:
+        label(for='amount') Amount (in minor units, no decimal):
+      #right
+        input#skey(type='text' name='skey' size='125')
+        input#pan(type='text' name='pan' size='16' maxlength='16')
+        input#expm(type='text' name='expm' size='8')
+        input#expy(type='text' name='expy' size='8')
+        input#cvv(type='text' name='cvv' size='8')
+        input#amount(type='text' name='amount' size='12')
+    input(type='submit' value='Get some!' style='margin-top: 5px')

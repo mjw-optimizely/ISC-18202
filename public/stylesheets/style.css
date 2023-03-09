@@ -1,0 +1,46 @@
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00b7ff;
+}
+
+input {
+    margin-left: 5px;
+}
+
+.green {
+    color: green;
+}
+
+div#wrapper {
+    width: 1500px;
+    overflow: hidden; /* add this to contain floated children */
+}
+div#left {
+    width: 16%;
+    margin-right: 5px;
+    float: left;
+}
+div#right {
+    width: 83%;
+    float: left;
+}
+label,
+input {
+    display: block;
+}
+input {
+    margin-bottom: 1px;
+}
+label {
+    margin-bottom: 6px;
+}
+h1 {
+    font-size: larger;
+}
+body {
+    margin: 15px;
+}
