@@ -24,7 +24,7 @@ function step1_createPaymentIntent(amount) {
                 },
             })
             .then(response => {
-                console.log(`BLAM! ${JSON.stringify(response.data)}`);
+                // console.log(`BLAM! ${JSON.stringify(response.data)}`);
                 resolve({ secret: response.data.client_secret });
             })
             .catch(error => {

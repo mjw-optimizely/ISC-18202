@@ -6,17 +6,17 @@ block content
     #wrapper
       #left
         label(for='skey') Secret Key:
-        label(for='pan') Card Number:
-        label(for='expm') Exp Month (mm):
-        label(for='expy') Exp Year (yyyy):
-        label(for='cvv') CVV:
+        //- label(for='pan') Card Number:
+        //- label(for='expm') Exp Month (mm):
+        //- label(for='expy') Exp Year (yyyy):
+        //- label(for='cvv') CVV:
         label(for='amount') Amount (in minor units, no decimal):
       #right
         input#skey(type='text' name='skey' size='125')
-        input#pan(type='text' name='pan' size='16' maxlength='16' value='4111111111111111')
-        input#expm(type='text' name='expm' size='8' value='03')
-        input#expy(type='text' name='expy' size='8' value='2025')
-        input#cvv(type='text' name='cvv' size='8' value='654')
+        //- input#pan(type='text' name='pan' size='16' maxlength='16' value='4111111111111111')
+        //- input#expm(type='text' name='expm' size='8' value='03')
+        //- input#expy(type='text' name='expy' size='8' value='2025')
+        //- input#cvv(type='text' name='cvv' size='8' value='654')
         input#amount(type='text' name='amount' size='12' value='12345')
         input#radarSessionId(type='hidden' name='radarSessionId')
     input#submit(type='submit' value='Get some!' style='margin-top: 5px' disabled='disabled')

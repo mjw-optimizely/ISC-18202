@@ -5,31 +5,38 @@ block content
   p Status: #{status}
   p#data Data: #{JSON.stringify(data)}
   #paymentElement
+  button#gobutton(type='button' visibility='hidden') Okay, go
   script.
+    var stripe;
+    var elements;
+    const goButton = document.getElementById("gobutton");
+    goButton.addEventListener("click", (event) => {
+      console.log('Okay, going!');
+      stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          // Return URL where the customer should be redirected after the PaymentIntent is confirmed.
+          return_url: 'https://example.com',
+        },
+      })
+      .then(function(result) {
+        if (result.error) {
+          document.getElementById("data").innerHTML = `There was a nerror: ${JSON.stringify(result.error)}`;
+        }
+        else {
+          document.getElementById("data").innerHTML = "I guess that worked";
+        }
+      });      
+    });
+
     window.onload = async (event) => {
-      const stripe = Stripe(
+      stripe = Stripe(
         "pk_test_51MikWFIentMRxMOaTOaruHHvKSOjEIHcpGCPPdtSFZmOub6WRjX04PANGooxoLl9BWD8FILWi9J4iN93OtvVuBEM000PYI8gQe");
 
-      var elements = stripe.elements({
+      elements = stripe.elements({
         clientSecret: "#{secret}",
       });
 
       var paymentElement = elements.create('payment');
-      paymentElement.mount(document.getElementById("paymentElement"));
-      
-      //- stripe.confirmPayment({
-      //-   paymentElement,
-      //-   confirmParams: {
-      //-     // Return URL where the customer should be redirected after the PaymentIntent is confirmed.
-      //-     return_url: 'https://example.com',
-      //-   },
-      //- })
-      //- .then(function(result) {
-      //-   if (result.error) {
-      //-     document.getElementById("data").innerHTML = "There was a nerror";
-      //-   }
-      //-   else {
-      //-     document.getElementById("data").innerHTML = "I guess that worked";
-      //-   }
-      //- });      
+      paymentElement.mount(document.getElementById("paymentElement"));      
     }
