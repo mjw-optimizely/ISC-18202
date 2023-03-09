@@ -42,14 +42,14 @@ router.post("/authenticated", async function (req, res, next) {
     try {
         var paymentIntentResponse = await step1_createPaymentIntent(req.body.amount);
 
-        res.render("result", {
-            status: "Good",
-            data: "meow",
-            secret: paymentIntentResponse.secret,
-        });
+        res.render("enter_card", { secret: paymentIntentResponse.secret });
     } catch (error) {
         res.render("error", { message: JSON.stringify(error) });
     }
+});
+
+router.get("/handle_redirect", async function (req, res, next) {
+    res.render("handle_redirect", {});
 });
 
 module.exports = router;

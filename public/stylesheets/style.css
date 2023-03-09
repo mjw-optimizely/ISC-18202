@@ -47,4 +47,5 @@ body {
 
 button {
     margin-top: 5px;
+    visibility: hidden;
 }

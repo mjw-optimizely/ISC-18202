@@ -1,22 +1,21 @@
 extends layout
 
 block content
-  h1 Success!
-  p Status: #{status}
-  p#data Data: #{JSON.stringify(data)}
+  h1 So far, so good...
   #paymentElement
-  button#gobutton(type='button' visibility='hidden') Okay, go
+  button#gobutton(type='button') Okay, go
   script.
     var stripe;
     var elements;
     const goButton = document.getElementById("gobutton");
+    
     goButton.addEventListener("click", (event) => {
       console.log('Okay, going!');
       stripe.confirmPayment({
         elements,
         confirmParams: {
           // Return URL where the customer should be redirected after the PaymentIntent is confirmed.
-          return_url: 'https://example.com',
+          return_url: 'https://24f2-66-211-157-82.ngrok.io/handle_redirect',
         },
       })
       .then(function(result) {
@@ -38,5 +37,6 @@ block content
       });
 
       var paymentElement = elements.create('payment');
-      paymentElement.mount(document.getElementById("paymentElement"));      
+      paymentElement.mount(document.getElementById("paymentElement"));
+      goButton.style.visibility = "visible";      
     }
