@@ -8,14 +8,19 @@ router.get("/", function (req, res, next) {
     res.render("index", { title: "Stripe" });
 });
 
-function step1_createPaymentIntent(amount) {
+function createPaymentIntent(amount) {
     return new Promise((resolve, reject) => {
         const params = new URLSearchParams();
-        params.append("amount", amount);
-        params.append("currency", "usd");
-        params.append("customer", "cus_NUlvJCIihFkt5H");
+        // This is how you request 3DS verification
+        params.append("payment_method_options[card][request_three_d_secure]", "any");
+        // This payment method value was created with
+        // https://api.stripe.com/v1/customers/cus_NUlvJCIihFkt5H/sources. See Postman collection.
         params.append("payment_method", "card_1MjqhDIentMRxMOauWJwy6Sw");
+        // This customer value was created with https://api.stripe.com/v1/customers. See Postman collection.
+        params.append("customer", "cus_NUlvJCIihFkt5H");
+        params.append("currency", "usd");
         params.append("confirm", "true");
+        params.append("amount", amount);
 
         axios
             .post(`${baseUrl}/v1/payment_intents`, params, {
@@ -24,7 +29,6 @@ function step1_createPaymentIntent(amount) {
                 },
             })
             .then(response => {
-                // console.log(`BLAM! ${JSON.stringify(response.data)}`);
                 resolve({ secret: response.data.client_secret });
             })
             .catch(error => {
@@ -35,12 +39,10 @@ function step1_createPaymentIntent(amount) {
 
 router.post("/authenticated", async function (req, res, next) {
     secretKey = req.body.skey;
-    console.log(
-        `Received: ${req.body.skey}, ${req.body.pan}, ${req.body.expm}, ${req.body.expy}, ${req.body.cvv}, ${req.body.amount}, ${req.body.radarSessionId}`,
-    );
+    console.log(`Received: ${req.body.skey}, ${req.body.amount}`);
 
     try {
-        var paymentIntentResponse = await step1_createPaymentIntent(req.body.amount);
+        var paymentIntentResponse = await createPaymentIntent(req.body.amount);
 
         res.render("enter_card", { secret: paymentIntentResponse.secret });
     } catch (error) {
