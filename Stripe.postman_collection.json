@@ -1,0 +1,147 @@
+{
+    "info": {
+        "_postman_id": "9138f7ec-a1bb-4fbf-9c14-afbfda274710",
+        "name": "Stripe",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "17709390"
+    },
+    "item": [
+        {
+            "name": "1. Create Token",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "urlencoded",
+                    "urlencoded": [
+                        {
+                            "key": "card[number]",
+                            "value": "4000000000003220",
+                            "type": "text"
+                        },
+                        {
+                            "key": "card[exp_month]",
+                            "value": "10",
+                            "type": "text"
+                        },
+                        {
+                            "key": "card[exp_year]",
+                            "value": "2026",
+                            "type": "text"
+                        },
+                        {
+                            "key": "card[cvc]",
+                            "value": "249",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "https://api.stripe.com/v1/tokens",
+                    "protocol": "https",
+                    "host": ["api", "stripe", "com"],
+                    "path": ["v1", "tokens"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "2. Create Customer",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "urlencoded",
+                    "urlencoded": [
+                        {
+                            "key": "description",
+                            "value": "Your mom",
+                            "type": "text"
+                        },
+                        {
+                            "key": "name",
+                            "value": "Herbert Birdsfoot",
+                            "type": "text"
+                        },
+                        {
+                            "key": "payment_method",
+                            "value": "tok_1MimdhB9eWliA2wWpKHSgBeY",
+                            "type": "text",
+                            "disabled": true
+                        },
+                        {
+                            "key": "address",
+                            "value": "Poughkeepsie",
+                            "type": "text",
+                            "disabled": true
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "https://api.stripe.com/v1/customers",
+                    "protocol": "https",
+                    "host": ["api", "stripe", "com"],
+                    "path": ["v1", "customers"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "3. Create Card",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "urlencoded",
+                    "urlencoded": [
+                        {
+                            "key": "source",
+                            "value": "tok_1MjqhDIentMRxMOaCINwppMD",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "https://api.stripe.com/v1/customers/cus_NUlvJCIihFkt5H/sources",
+                    "protocol": "https",
+                    "host": ["api", "stripe", "com"],
+                    "path": ["v1", "customers", "cus_NUlvJCIihFkt5H", "sources"]
+                }
+            },
+            "response": []
+        }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "token",
+                "value": "{{secret_key}}",
+                "type": "string"
+            }
+        ]
+    },
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [""]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "exec": [""]
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "secret_key",
+            "value": "sk_test_51Mi...(redacted)",
+            "type": "string"
+        }
+    ]
+}
