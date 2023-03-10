@@ -2,3 +2,30 @@ extends layout
 
 block content
   h1 Redirect handled!
+  ul
+    li Payment Intent: #{payment_intent}
+    li PI Client Secret: #{payment_intent_client_secret}
+    li Redirect Status: #{redirect_status}
+  p#paymentStatus
+  script.
+    window.onload = async (event) => {
+        const stripe = Stripe("pk_test_51MikWFIentMRxMOaTOaruHHvKSOjEIHcpGCPPdtSFZmOub6WRjX04PANGooxoLl9BWD8FILWi9J4iN93OtvVuBEM000PYI8gQe");
+        const iframeHost = document.getElementById("iframehost");
+
+        stripe
+            .retrievePaymentIntent("#{payment_intent_client_secret}")
+            .then(function(result) {
+                document.getElementById("paymentStatus").innerHTML = `Payment status: ${result.paymentIntent.status}`;
+
+                // I don't understand this step 3 from https://stripe.com/docs/payments/3d-secure#render-iframe.
+                // We already did this part. It's done.
+
+                // var iframe = document.createElement('iframe');
+                // iframe.src = paymentIntent.next_action.redirect_to_url.url;
+                // iframe.width = 600;
+                // iframe.height = 400;
+                // iframeHost.appendChild(iframe);      
+            });
+    }
+
+

@@ -49,7 +49,11 @@ router.post("/authenticated", async function (req, res, next) {
 });
 
 router.get("/handle_redirect", async function (req, res, next) {
-    res.render("handle_redirect", {});
+    res.render("handle_redirect", {
+        payment_intent: req.query.payment_intent,
+        payment_intent_client_secret: req.query.payment_intent_client_secret,
+        redirect_status: req.query.redirect_status,
+    });
 });
 
 module.exports = router;
